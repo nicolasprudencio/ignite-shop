@@ -35,8 +35,9 @@ export const Product = styled('a', {
     borderRadius: 6,
 
     display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'space-between',
+    alignItems: 'flex-start',
+    // justifyContent: 'space-between',
+    gap: '.5rem',
 
     backgroundColor: 'rgba(0, 0, 0, 0.6)',
 
