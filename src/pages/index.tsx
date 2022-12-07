@@ -31,7 +31,11 @@ export default function Home({ products }: HomeProps) {
         const productPrice = product.price
 
         return (
-          <Product className="keen-slider__slide" key={productId}>
+          <Product
+            href={`/products/${productId}`}
+            key={productId}
+            className="keen-slider__slide"
+          >
             <Image src={productImage} alt="" width={520} height={480} />
             <footer>
               <strong>{productName}</strong>
