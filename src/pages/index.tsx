@@ -32,6 +32,7 @@ export default function Home({ products }: HomeProps) {
 
         return (
           <Product
+            prefetch={false}
             href={`/products/${productId}`}
             key={productId}
             className="keen-slider__slide"
