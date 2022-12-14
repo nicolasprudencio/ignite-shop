@@ -45,7 +45,7 @@ export const CartButton = styled('button', {
   }
 })
 
-export const CartAmount = styled('div', {
+export const CartCount = styled('div', {
   position: 'absolute',
   display: 'flex',
   alignItems: 'center',
