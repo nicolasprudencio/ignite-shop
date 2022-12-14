@@ -7,7 +7,11 @@ export const HomeContainer = styled('main', {
   maxWidth: 'calc(100vw - ((100vw - 1180px) /2))',
   marginLeft: 'auto',
   overflow: 'hidden',
-  minHeight: 656
+  minHeight: 656,
+
+  '&:last-child': {
+    marginRight: '1rem'
+  }
 })
 
 export const Product = styled(Link, {
@@ -16,9 +20,9 @@ export const Product = styled(Link, {
   cursor: 'pointer',
   position: 'relative',
   overflow: 'hidden',
-
+  marginBottom: '2rem',
   display: 'flex',
-
+  width: 696,
   alignItems: 'center',
   justifyContent: 'center',
 
@@ -31,12 +35,12 @@ export const Product = styled(Link, {
     bottom: '0.25rem',
     left: '0.25rem',
     right: '0.25rem',
-    padding: '2rem',
+    padding: '1rem',
 
     borderRadius: 6,
 
     display: 'flex',
-    alignItems: 'flex-start',
+    alignItems: 'center',
     justifyContent: 'space-between',
     gap: '.5rem',
 
@@ -54,7 +58,38 @@ export const Product = styled(Link, {
     span: {
       fontSize: '$xl',
       fontWeight: 'bold',
-      color: '$green300'
+      color: '$green500'
+    },
+
+    div: {
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'flex-start',
+      gap: 4
+    },
+
+    button: {
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      width: 56,
+      height: 56,
+
+      backgroundColor: '$green500',
+      border: 'none',
+      borderRadius: 8,
+      transition: 'all 0.2s ease-in-out',
+
+      svg: {
+        width: 24,
+        height: 24,
+        color: '$white'
+      },
+
+      '&:hover': {
+        cursor: 'pointer',
+        backgroundColor: '$green300'
+      }
     }
   },
 

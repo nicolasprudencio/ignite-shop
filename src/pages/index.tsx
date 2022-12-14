@@ -3,6 +3,8 @@ import { HomeContainer, Product } from '../styles/pages/home'
 import { useKeenSlider } from 'keen-slider/react'
 import { GetStaticProps } from 'next'
 import { stripe } from '../lib/stripe'
+import { HiOutlineShoppingBag } from 'react-icons/hi'
+
 import Stripe from 'stripe'
 
 interface HomeProps {
@@ -39,8 +41,13 @@ export default function Home({ products }: HomeProps) {
           >
             <Image src={productImage} alt="" width={520} height={480} />
             <footer>
-              <strong>{productName}</strong>
-              <span>{productPrice}</span>
+              <div>
+                <strong>{productName}</strong>
+                <span>{productPrice}</span>
+              </div>
+              <button>
+                <HiOutlineShoppingBag />
+              </button>
             </footer>
           </Product>
         )

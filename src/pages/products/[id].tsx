@@ -53,12 +53,14 @@ export default function Product({ product }: productProps) {
         <Image src={product.imageUrl} alt="" width={520} height={480} />
       </ImageContainer>
       <ProductDeatils>
-        <h1>{product.name}</h1>
-        <span>{product.price}</span>
+        <div>
+          <h1>{product.name}</h1>
+          <span>{product.price}</span>
+        </div>
 
         <p>{product.description}</p>
         <button disabled={isCheckoutSessionLoading} onClick={handleBuyProduct}>
-          Comprar agora
+          Colocar na sacola
         </button>
       </ProductDeatils>
     </ProductContainer>

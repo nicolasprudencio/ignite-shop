@@ -7,7 +7,8 @@ export const ProductContainer = styled('main', {
   gap: '4rem',
 
   maxWidth: 1180,
-  margin: '0 auto'
+  margin: '0 auto',
+  marginBottom: '2rem'
 })
 
 export const ImageContainer = styled('div', {
@@ -30,6 +31,13 @@ export const ImageContainer = styled('div', {
 export const ProductDeatils = styled('div', {
   display: 'flex',
   flexDirection: 'column',
+  alignItems: 'flex-start',
+  div: {
+    display: 'flex',
+    alignSelf: 'flex-start',
+    alignItems: 'flex-start',
+    flexDirection: 'column'
+  },
 
   h1: {
     fontSize: '$2xl',
@@ -52,6 +60,8 @@ export const ProductDeatils = styled('div', {
 
   button: {
     marginTop: 'auto',
+
+    width: '100%',
     backgroundColor: '$green500',
     border: 0,
     color: '$white',
