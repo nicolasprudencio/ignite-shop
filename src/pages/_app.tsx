@@ -6,21 +6,28 @@ import Image from 'next/image'
 import { HiOutlineShoppingBag } from 'react-icons/hi'
 import Link from 'next/link'
 import { ShoppingCart } from '../components/ShoppingCart/index.'
+import { useState } from 'react'
 
 globalStyles()
 
 export default function App({ Component, pageProps }: AppProps) {
+  const [openSideBar, setOpenSideBar] = useState(false)
+
+  function handleOpenSideBar() {
+    setOpenSideBar(!openSideBar)
+  }
+
   return (
     <Container>
       <Header>
         <Link href={'/'}>
           <Image src={logoImg} alt="" width={130} height={52} />
         </Link>
-        <CartButton>
+        <CartButton onClick={handleOpenSideBar}>
           <HiOutlineShoppingBag />
           <CartCount>1</CartCount>
         </CartButton>
-        <ShoppingCart />
+        {openSideBar && <ShoppingCart sideBarIsActive={setOpenSideBar} />}
       </Header>
       <Component {...pageProps} />
     </Container>

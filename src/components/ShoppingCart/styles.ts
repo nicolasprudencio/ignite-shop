@@ -1,6 +1,6 @@
 import { styled } from '../../styles/index'
 
-export const CartContainer = styled('main', {
+export const SideBar = styled('div', {
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',
@@ -10,9 +10,9 @@ export const CartContainer = styled('main', {
   position: 'absolute',
   right: 0,
   top: 0,
-
-  height: '100%',
-  minHeight: 800,
+  padding: '2rem',
+  height: 800,
+  minHeight: '100%',
   width: 480,
 
   zIndex: 1,
@@ -20,19 +20,41 @@ export const CartContainer = styled('main', {
   boxShadow: '-20px 0px 60px 0.5px rgba(0, 0, 0, 0.5)',
 
   h1: {
-    fontSize: 20,
-
-    marginTop: 72
+    fontSize: 20
   },
 
   footer: {
-    marginTop: 38
+    marginTop: 150
+  }
+})
+
+export const ShoppingCartContainer = styled('main', {
+  display: 'flex',
+  flexDirection: 'column',
+
+  svg: {
+    position: 'absolute',
+    right: 20,
+    top: 20,
+    fontSize: 24,
+
+    color: '#8d8d99',
+
+    transition: 'all 0.2s ease-in-out',
+
+    '&:hover': {
+      filter: 'brightness(0.8)',
+      cursor: 'pointer'
+    }
   }
 })
 
 export const CartItemsWrapper = styled('div', {
   display: 'flex',
   flexDirection: 'column',
+
+  width: 384,
+  alignSelf: 'flex-start',
 
   marginTop: 32,
 
@@ -93,9 +115,20 @@ export const CartItem = styled('div', {
   }
 })
 
-export const CartAmount = styled('footer', {
-  marginTop: 198,
-  marginBottom: 55
+export const CartAmount = styled('div', {
+  display: 'flex',
+  flexDirection: 'column',
+  gap: 7,
+
+  p: {
+    display: 'flex',
+    justifyContent: 'space-between'
+  },
+
+  strong: {
+    display: 'flex',
+    justifyContent: 'space-between'
+  }
 })
 
 export const FinalShopButton = styled('button', {
@@ -103,6 +136,8 @@ export const FinalShopButton = styled('button', {
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
+
+  marginTop: 55,
 
   width: 384,
   height: 69,
