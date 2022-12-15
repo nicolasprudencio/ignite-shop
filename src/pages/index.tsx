@@ -6,6 +6,7 @@ import { stripe } from '../lib/stripe'
 import { HiOutlineShoppingBag } from 'react-icons/hi'
 
 import Stripe from 'stripe'
+import { useCart } from '../hooks/useCart'
 
 interface HomeProps {
   products: {
@@ -23,6 +24,20 @@ export default function Home({ products }: HomeProps) {
       spacing: 48
     }
   })
+
+  const { shoppingCart, setShoppingCart } = useCart()
+
+  // function handleAddCartItem() {
+  //   const teste = products.id
+  //   const oldCart = [...shoppingCart]
+
+  //   // if(teste === id) {
+
+  //   // }
+  //   console.log(products)
+  // }
+
+  // handleAddCartItem()
 
   return (
     <HomeContainer ref={sliderRef} className="keen-slider">
@@ -60,6 +75,9 @@ export const getStaticProps: GetStaticProps = async () => {
   const response = await stripe.products.list({
     expand: ['data.default_price']
   })
+
+  console.log('TO AQUIIIIIII', response.data)
+
   const products = response.data.map((product) => {
     const price = product.default_price as Stripe.Price
 

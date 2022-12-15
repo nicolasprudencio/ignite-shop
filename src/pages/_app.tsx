@@ -7,6 +7,7 @@ import { HiOutlineShoppingBag } from 'react-icons/hi'
 import Link from 'next/link'
 import { ShoppingCart } from '../components/ShoppingCart/index.'
 import { useState } from 'react'
+import { ShoppingCartProvider } from '../contexts/CartContext'
 
 globalStyles()
 
@@ -18,18 +19,20 @@ export default function App({ Component, pageProps }: AppProps) {
   }
 
   return (
-    <Container>
-      <Header>
-        <Link href={'/'}>
-          <Image src={logoImg} alt="" width={130} height={52} />
-        </Link>
-        <CartButton onClick={handleOpenSideBar}>
-          <HiOutlineShoppingBag />
-          <CartCount>1</CartCount>
-        </CartButton>
-        {openSideBar && <ShoppingCart sideBarIsActive={setOpenSideBar} />}
-      </Header>
-      <Component {...pageProps} />
-    </Container>
+    <ShoppingCartProvider>
+      <Container>
+        <Header>
+          <Link href={'/'}>
+            <Image src={logoImg} alt="" width={130} height={52} />
+          </Link>
+          <CartButton onClick={handleOpenSideBar}>
+            <HiOutlineShoppingBag />
+            <CartCount>1</CartCount>
+          </CartButton>
+          {openSideBar && <ShoppingCart sideBarIsActive={setOpenSideBar} />}
+        </Header>
+        <Component {...pageProps} />
+      </Container>
+    </ShoppingCartProvider>
   )
 }
