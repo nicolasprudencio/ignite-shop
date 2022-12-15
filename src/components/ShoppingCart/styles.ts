@@ -25,6 +25,22 @@ export const SideBar = styled('div', {
 
   footer: {
     marginTop: 150
+  },
+
+  transition: 'all .2s ease-in-out',
+
+  variants: {
+    active: {
+      closed: {
+        opacity: 0,
+        width: 0
+      },
+
+      open: {
+        opacity: 1,
+        width: '100%'
+      }
+    }
   }
 })
 

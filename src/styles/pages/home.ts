@@ -26,6 +26,8 @@ export const Product = styled(Link, {
   alignItems: 'center',
   justifyContent: 'center',
 
+  boxShadow: '5px 20px 10px 5px rgba(0, 0, 0, 0.5)',
+
   img: {
     objectFit: 'cover'
   },
