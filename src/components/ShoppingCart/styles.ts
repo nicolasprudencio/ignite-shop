@@ -1,6 +1,17 @@
 import { styled } from '../../styles/index'
+import { motion } from 'framer-motion'
 
-export const SideBar = styled('div', {
+export const Overlay = styled('div', {
+  overflow: 'hidden',
+  position: 'fixed',
+  left: 0,
+  top: 0,
+  width: '100vw',
+  height: '100vh',
+  zIndex: 1
+})
+
+export const SideBar = styled(motion.div, {
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',
@@ -14,8 +25,6 @@ export const SideBar = styled('div', {
   height: 800,
   minHeight: '100%',
   width: 480,
-
-  zIndex: 1,
 
   boxShadow: '-20px 0px 60px 0.5px rgba(0, 0, 0, 0.5)',
 

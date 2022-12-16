@@ -7,8 +7,10 @@ import { HiOutlineShoppingBag } from 'react-icons/hi'
 
 import Stripe from 'stripe'
 import { useCart } from '../hooks/useCart'
+import { productProps } from '../contexts/CartContext'
+import { MouseEvent } from 'react'
 
-interface HomeProps {
+export interface HomeProps {
   products: {
     id: string
     name: string
@@ -25,19 +27,17 @@ export default function Home({ products }: HomeProps) {
     }
   })
 
-  const { shoppingCart, setShoppingCart } = useCart()
+  const { setShoppingCart } = useCart()
 
-  // function handleAddCartItem() {
-  //   const teste = products.id
-  //   const oldCart = [...shoppingCart]
+  function handleAddCartItem(id: string) {
+    const foundProduct = products.find((product) => product.id === id)
 
-  //   // if(teste === id) {
+    if (!foundProduct) {
+      return
+    }
 
-  //   // }
-  //   console.log(products)
-  // }
-
-  // handleAddCartItem()
+    setShoppingCart((oldState) => [...oldState, foundProduct])
+  }
 
   return (
     <HomeContainer ref={sliderRef} className="keen-slider">
@@ -55,12 +55,15 @@ export default function Home({ products }: HomeProps) {
             className="keen-slider__slide"
           >
             <Image src={productImage} alt="" width={520} height={480} />
-            <footer>
+            <footer onClick={(event) => event.preventDefault()}>
               <div>
                 <strong>{productName}</strong>
                 <span>{productPrice}</span>
               </div>
-              <button>
+              <button
+                type="button"
+                onClick={() => handleAddCartItem(productId)}
+              >
                 <HiOutlineShoppingBag />
               </button>
             </footer>
@@ -76,7 +79,7 @@ export const getStaticProps: GetStaticProps = async () => {
     expand: ['data.default_price']
   })
 
-  console.log('TO AQUIIIIIII', response.data)
+  // console.log('TO AQUIIIIIII', response.data)
 
   const products = response.data.map((product) => {
     const price = product.default_price as Stripe.Price
@@ -91,6 +94,8 @@ export const getStaticProps: GetStaticProps = async () => {
       }).format(price.unit_amount! / 100)
     }
   })
+
+  console.log('TO AQUIIIII', response.data)
 
   return {
     props: {

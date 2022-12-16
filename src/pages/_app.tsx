@@ -5,7 +5,7 @@ import { CartCount, CartButton, Container, Header } from '../styles/pages/app'
 import Image from 'next/image'
 import { HiOutlineShoppingBag } from 'react-icons/hi'
 import Link from 'next/link'
-import { ShoppingCart } from '../components/ShoppingCart/index.'
+import { ShoppingCart } from '../components/ShoppingCart'
 import { useState } from 'react'
 import { ShoppingCartProvider } from '../contexts/CartContext'
 
