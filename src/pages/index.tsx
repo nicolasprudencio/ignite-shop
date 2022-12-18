@@ -7,8 +7,6 @@ import { HiOutlineShoppingBag } from 'react-icons/hi'
 
 import Stripe from 'stripe'
 import { useCart } from '../hooks/useCart'
-import { productProps } from '../contexts/CartContext'
-import { MouseEvent } from 'react'
 
 export interface HomeProps {
   products: {
@@ -27,16 +25,21 @@ export default function Home({ products }: HomeProps) {
     }
   })
 
-  const { setShoppingCart } = useCart()
+  const { setShoppingCart, shoppingCart, setOpenSideBar } = useCart()
 
   function handleAddCartItem(id: string) {
     const foundProduct = products.find((product) => product.id === id)
 
     if (!foundProduct) {
-      return
+      return alert('Produto não encontrado')
     }
+    const cartProduct = shoppingCart.find((product) => product.id === id)
 
+    if (foundProduct === cartProduct) {
+      return alert('Item já adicionado a sacola')
+    }
     setShoppingCart((oldState) => [...oldState, foundProduct])
+    setOpenSideBar(true)
   }
 
   return (

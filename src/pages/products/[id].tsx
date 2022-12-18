@@ -4,6 +4,7 @@ import Image from 'next/image'
 import { useRouter } from 'next/router'
 import { useState } from 'react'
 import Stripe from 'stripe'
+import { useCart } from '../../hooks/useCart'
 import { stripe } from '../../lib/stripe'
 import {
   ImageContainer,
@@ -26,6 +27,7 @@ export default function Product({ product }: productProps) {
   const { isFallback } = useRouter()
   const [isCheckoutSessionLoading, setIsCheckoutSessionLoading] =
     useState(false)
+  const { shoppingCart, setShoppingCart } = useCart()
 
   if (isFallback) {
     return <p>loading...</p>
@@ -46,6 +48,22 @@ export default function Product({ product }: productProps) {
       setIsCheckoutSessionLoading(false)
     }
   }
+
+  // function handleAddCartItem(id: string) {
+  //   const foundProduct = product
+
+  //   if (!foundProduct) {
+  //     return alert('Produto não encontrado')
+  //   }
+  //   const cartProduct = shoppingCart.find((product) => product.id)
+
+  //   if (foundProduct === cartProduct) {
+  //     return alert('Item já adicionado a sacola')
+  //   }
+  //   setShoppingCart((oldState) => [...oldState, foundProduct])
+  //   console.log(cartProduct)
+  //   // setOpenSideBar(true)
+  // }
 
   return (
     <ProductContainer>

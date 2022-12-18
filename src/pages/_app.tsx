@@ -8,29 +8,16 @@ import Link from 'next/link'
 import { ShoppingCart } from '../components/ShoppingCart'
 import { useState } from 'react'
 import { ShoppingCartProvider } from '../contexts/CartContext'
+import { useCart } from '../hooks/useCart'
+import { HeaderComponent } from '../components/Header'
 
 globalStyles()
 
 export default function App({ Component, pageProps }: AppProps) {
-  const [openSideBar, setOpenSideBar] = useState(false)
-
-  function handleOpenSideBar() {
-    setOpenSideBar(!openSideBar)
-  }
-
   return (
     <ShoppingCartProvider>
       <Container>
-        <Header>
-          <Link href={'/'}>
-            <Image src={logoImg} alt="" width={130} height={52} />
-          </Link>
-          <CartButton onClick={handleOpenSideBar}>
-            <HiOutlineShoppingBag />
-            <CartCount>1</CartCount>
-          </CartButton>
-          {openSideBar && <ShoppingCart sideBarIsActive={setOpenSideBar} />}
-        </Header>
+        <HeaderComponent />
         <Component {...pageProps} />
       </Container>
     </ShoppingCartProvider>

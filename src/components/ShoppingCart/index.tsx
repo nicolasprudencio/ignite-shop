@@ -40,7 +40,7 @@ export function ShoppingCart({ sideBarIsActive }: active) {
           <h1>Sacola de compras</h1>
           <AiOutlineClose
             className="closeIcon"
-            onClick={() => handleSetSideBarActive}
+            onClick={handleSetSideBarActive}
           />
           <CartItemsWrapper>
             {shoppingCart.length === 0 ? (
