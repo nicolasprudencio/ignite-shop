@@ -4,6 +4,7 @@ import Image from 'next/image'
 import { useRouter } from 'next/router'
 import { useState } from 'react'
 import Stripe from 'stripe'
+import { HomeProps } from '..'
 import { useCart } from '../../hooks/useCart'
 import { stripe } from '../../lib/stripe'
 import {
@@ -49,21 +50,22 @@ export default function Product({ product }: productProps) {
     }
   }
 
-  // function handleAddCartItem(id: string) {
-  //   const foundProduct = product
+  function handleAddCartItem(id: string) {
+    const foundProduct = product
 
-  //   if (!foundProduct) {
-  //     return alert('Produto não encontrado')
-  //   }
-  //   const cartProduct = shoppingCart.find((product) => product.id)
+    if (!foundProduct) {
+      return alert('Produto não encontrado')
+    }
+    const cartProduct = shoppingCart.find((product) => product)
 
-  //   if (foundProduct === cartProduct) {
-  //     return alert('Item já adicionado a sacola')
-  //   }
-  //   setShoppingCart((oldState) => [...oldState, foundProduct])
-  //   console.log(cartProduct)
-  //   // setOpenSideBar(true)
-  // }
+    if (id === cartProduct?.id) {
+      return alert('Item já adicionado a sacola')
+    }
+    setShoppingCart((oldState) => [...oldState, foundProduct])
+    // console.log(shoppingCart)
+    // console.log(cartProduct, foundProduct)
+    // setOpenSideBar(true)
+  }
 
   return (
     <ProductContainer>
@@ -77,7 +79,10 @@ export default function Product({ product }: productProps) {
         </div>
 
         <p>{product.description}</p>
-        <button disabled={isCheckoutSessionLoading} onClick={handleBuyProduct}>
+        <button
+          disabled={isCheckoutSessionLoading}
+          onClick={() => handleAddCartItem(product.id)}
+        >
           Colocar na sacola
         </button>
       </ProductDeatils>

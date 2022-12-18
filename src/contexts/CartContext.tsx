@@ -1,4 +1,4 @@
-import { createContext, ReactNode, useState } from 'react'
+import { createContext, ReactNode, useEffect, useState } from 'react'
 import { stripe } from '../lib/stripe'
 import Stripe from 'stripe'
 import { GetStaticProps } from 'next'
@@ -24,6 +24,15 @@ interface ShoppingContextProps {
   children: ReactNode
 }
 
+export interface CartItemProps {
+  products: {
+    id: string
+    name: string
+    imageUrl: string
+    price: string
+  }[]
+}
+
 export function ShoppingCartProvider({ children }: ShoppingContextProps) {
   const [shoppingCart, setShoppingCart] = useState<productProps[]>([])
   const [openSideBar, setOpenSideBar] = useState(false)
@@ -31,6 +40,32 @@ export function ShoppingCartProvider({ children }: ShoppingContextProps) {
   function handleOpenSideBar() {
     setOpenSideBar(!openSideBar)
   }
+
+  // async function fetchData() {
+  //   const response = await stripe.products.list({
+  //     expand: ['data.default_price']
+  //   })
+
+  //   const products = response.data.map((product) => {
+  //     const price = product.default_price as Stripe.Price
+
+  //     return {
+  //       id: product.id,
+  //       name: product.name,
+  //       imageUrl: product.images[0],
+  //       price: new Intl.NumberFormat('pt-BR', {
+  //         style: 'currency',
+  //         currency: 'BRL'
+  //       }).format(price.unit_amount! / 100)
+  //     }
+  //   })
+
+  //   return products
+  // }
+
+  // useEffect(() => {
+  //   fetchData()
+  // }, [])
 
   return (
     <ShoppingCartContext.Provider
@@ -51,6 +86,8 @@ export const getStaticProps: GetStaticProps = async () => {
   const response = await stripe.products.list({
     expand: ['data.default_price']
   })
+
+  // console.log('TO AQUIIIIIII', response.data)
 
   const products = response.data.map((product) => {
     const price = product.default_price as Stripe.Price

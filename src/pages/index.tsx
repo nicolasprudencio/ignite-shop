@@ -25,7 +25,7 @@ export default function Home({ products }: HomeProps) {
     }
   })
 
-  const { setShoppingCart, shoppingCart, setOpenSideBar } = useCart()
+  const { shoppingCart, setShoppingCart, setOpenSideBar } = useCart()
 
   function handleAddCartItem(id: string) {
     const foundProduct = products.find((product) => product.id === id)
@@ -35,13 +35,14 @@ export default function Home({ products }: HomeProps) {
     }
     const cartProduct = shoppingCart.find((product) => product.id === id)
 
-    if (foundProduct === cartProduct) {
+    if (id === cartProduct?.id) {
       return alert('Item já adicionado a sacola')
     }
     setShoppingCart((oldState) => [...oldState, foundProduct])
     setOpenSideBar(true)
   }
 
+  console.log(shoppingCart)
   return (
     <HomeContainer ref={sliderRef} className="keen-slider">
       {products.map((product) => {
@@ -97,8 +98,6 @@ export const getStaticProps: GetStaticProps = async () => {
       }).format(price.unit_amount! / 100)
     }
   })
-
-  console.log('TO AQUIIIII', response.data)
 
   return {
     props: {
