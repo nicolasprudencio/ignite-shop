@@ -178,8 +178,13 @@ export const FinalShopButton = styled('button', {
 
   transition: 'all .2s ease-in-out',
 
-  '&:hover': {
+  '&:not(:disabled):hover': {
     background: '$green500',
     cursor: 'pointer'
+  },
+
+  '&:disabled': {
+    cursor: 'not-allowed',
+    filter: 'brightness(.8)'
   }
 })

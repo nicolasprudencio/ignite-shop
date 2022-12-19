@@ -14,6 +14,7 @@ export interface HomeProps {
     name: string
     imageUrl: string
     price: string
+    defaultPriceId: string
   }[]
 }
 
@@ -33,7 +34,7 @@ export default function Home({ products }: HomeProps) {
     if (!foundProduct) {
       return alert('Produto não encontrado')
     }
-    const cartProduct = shoppingCart.find((product) => product.id === id)
+    const cartProduct = shoppingCart.find((product) => product)
 
     if (id === cartProduct?.id) {
       return alert('Item já adicionado a sacola')
@@ -41,8 +42,6 @@ export default function Home({ products }: HomeProps) {
     setShoppingCart((oldState) => [...oldState, foundProduct])
     setOpenSideBar(true)
   }
-
-  console.log(shoppingCart)
   return (
     <HomeContainer ref={sliderRef} className="keen-slider">
       {products.map((product) => {
@@ -83,8 +82,6 @@ export const getStaticProps: GetStaticProps = async () => {
     expand: ['data.default_price']
   })
 
-  // console.log('TO AQUIIIIIII', response.data)
-
   const products = response.data.map((product) => {
     const price = product.default_price as Stripe.Price
 
@@ -92,6 +89,7 @@ export const getStaticProps: GetStaticProps = async () => {
       id: product.id,
       name: product.name,
       imageUrl: product.images[0],
+      defaultPriceId: price.id,
       price: new Intl.NumberFormat('pt-BR', {
         style: 'currency',
         currency: 'BRL'

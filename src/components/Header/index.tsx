@@ -1,6 +1,5 @@
 import Image from 'next/image'
 import Link from 'next/link'
-import { useState } from 'react'
 import { HiOutlineShoppingBag } from 'react-icons/hi'
 import { useCart } from '../../hooks/useCart'
 import { ShoppingCart } from '../ShoppingCart'

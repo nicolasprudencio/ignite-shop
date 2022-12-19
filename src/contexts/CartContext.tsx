@@ -1,7 +1,4 @@
-import { createContext, ReactNode, useEffect, useState } from 'react'
-import { stripe } from '../lib/stripe'
-import Stripe from 'stripe'
-import { GetStaticProps } from 'next'
+import { createContext, ReactNode, useState } from 'react'
 
 export interface productProps {
   id: string
@@ -41,32 +38,6 @@ export function ShoppingCartProvider({ children }: ShoppingContextProps) {
     setOpenSideBar(!openSideBar)
   }
 
-  // async function fetchData() {
-  //   const response = await stripe.products.list({
-  //     expand: ['data.default_price']
-  //   })
-
-  //   const products = response.data.map((product) => {
-  //     const price = product.default_price as Stripe.Price
-
-  //     return {
-  //       id: product.id,
-  //       name: product.name,
-  //       imageUrl: product.images[0],
-  //       price: new Intl.NumberFormat('pt-BR', {
-  //         style: 'currency',
-  //         currency: 'BRL'
-  //       }).format(price.unit_amount! / 100)
-  //     }
-  //   })
-
-  //   return products
-  // }
-
-  // useEffect(() => {
-  //   fetchData()
-  // }, [])
-
   return (
     <ShoppingCartContext.Provider
       value={{
@@ -80,33 +51,4 @@ export function ShoppingCartProvider({ children }: ShoppingContextProps) {
       {children}
     </ShoppingCartContext.Provider>
   )
-}
-
-export const getStaticProps: GetStaticProps = async () => {
-  const response = await stripe.products.list({
-    expand: ['data.default_price']
-  })
-
-  // console.log('TO AQUIIIIIII', response.data)
-
-  const products = response.data.map((product) => {
-    const price = product.default_price as Stripe.Price
-
-    return {
-      id: product.id,
-      name: product.name,
-      imageUrl: product.images[0],
-      price: new Intl.NumberFormat('pt-BR', {
-        style: 'currency',
-        currency: 'BRL'
-      }).format(price.unit_amount! / 100)
-    }
-  })
-
-  return {
-    props: {
-      products
-    },
-    revalidate: 60 * 60 * 2
-  }
 }

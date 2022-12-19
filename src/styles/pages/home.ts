@@ -7,7 +7,7 @@ export const HomeContainer = styled('main', {
   maxWidth: 'calc(100vw - ((100vw - 1180px) /2))',
   marginLeft: 'auto',
   overflow: 'hidden',
-  minHeight: 656,
+  minHeight: '100%',
 
   '&:last-child': {
     marginRight: '1rem'
@@ -23,6 +23,7 @@ export const Product = styled(Link, {
   marginBottom: '2rem',
   display: 'flex',
   width: 696,
+  // height: '100%',
   alignItems: 'center',
   justifyContent: 'center',
 

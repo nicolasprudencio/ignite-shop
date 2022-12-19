@@ -11,13 +11,26 @@ import {
   Overlay
 } from './styles'
 import { useCart } from '../../hooks/useCart'
+import axios from 'axios'
+import { useEffect, useState } from 'react'
 
 interface active {
   sideBarIsActive: (arg: boolean) => void
 }
 
 export function ShoppingCart({ sideBarIsActive }: active) {
+  const [isCheckoutSessionLoading, setIsCheckoutSessionLoading] =
+    useState(false)
+  const [totalPrice, setTotalPrice] = useState(0)
   const { setShoppingCart, shoppingCart } = useCart()
+
+  useEffect(() => {
+    const subTotal = shoppingCart.reduce((total, item) => {
+      return total + (Number(item.price.slice(3).replace(/,/g, '.')) || 0)
+    }, 0.0)
+
+    setTotalPrice(subTotal)
+  }, [shoppingCart])
 
   function handleSetSideBarActive() {
     sideBarIsActive(false)
@@ -29,12 +42,29 @@ export function ShoppingCart({ sideBarIsActive }: active) {
     setShoppingCart(newCart)
   }
 
+  async function handleBuyProduct() {
+    try {
+      setIsCheckoutSessionLoading(true)
+      const response = await axios.post('/api/checkout', {
+        products: shoppingCart
+      })
+      const { checkoutUrl } = response.data
+
+      window.location.href = checkoutUrl
+    } catch (err) {
+      alert('Falha ao redirecionar ao checkout!')
+      setIsCheckoutSessionLoading(false)
+    }
+  }
+
   return (
     <Overlay>
       <SideBar
         initial={{ opacity: 0, x: 480 }}
         animate={{ opacity: 1, x: 0 }}
-        transition={{ velocity: '0.2s' }}
+        transition={{
+          velocity: '0.2s'
+        }}
       >
         <ShoppingCartContainer>
           <h1>Sacola de compras</h1>
@@ -76,13 +106,30 @@ export function ShoppingCart({ sideBarIsActive }: active) {
           <footer>
             <CartAmount>
               <p>
-                Quantidade <span>3 itens</span>
+                Quantidade{' '}
+                <span>
+                  {shoppingCart.length > 1
+                    ? `${shoppingCart.length} itens`
+                    : `${shoppingCart.length} item`}
+                </span>
               </p>
               <strong>
-                Valor Total<span>R$ 270,00</span>
+                Valor Total
+                <span>
+                  {totalPrice.toLocaleString('pt-BR', {
+                    style: 'currency',
+                    currency: 'BRL'
+                  })}
+                </span>
               </strong>
             </CartAmount>
-            <FinalShopButton>Finalizar compra</FinalShopButton>
+            <FinalShopButton
+              type="button"
+              disabled={isCheckoutSessionLoading}
+              onClick={handleBuyProduct}
+            >
+              Finalizar compra
+            </FinalShopButton>
           </footer>
         </ShoppingCartContainer>
       </SideBar>

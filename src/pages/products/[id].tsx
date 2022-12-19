@@ -1,10 +1,8 @@
-import axios from 'axios'
 import { GetStaticPaths, GetStaticProps } from 'next'
 import Image from 'next/image'
-import { useRouter } from 'next/router'
-import { useState } from 'react'
+
 import Stripe from 'stripe'
-import { HomeProps } from '..'
+
 import { useCart } from '../../hooks/useCart'
 import { stripe } from '../../lib/stripe'
 import {
@@ -13,7 +11,7 @@ import {
   ProductDeatils
 } from '../../styles/pages/products'
 
-interface productProps {
+export interface productProps {
   product: {
     id: string
     name: string
@@ -25,30 +23,7 @@ interface productProps {
 }
 
 export default function Product({ product }: productProps) {
-  const { isFallback } = useRouter()
-  const [isCheckoutSessionLoading, setIsCheckoutSessionLoading] =
-    useState(false)
   const { shoppingCart, setShoppingCart } = useCart()
-
-  if (isFallback) {
-    return <p>loading...</p>
-  }
-
-  async function handleBuyProduct() {
-    try {
-      setIsCheckoutSessionLoading(true)
-      const response = await axios.post('/api/checkout', {
-        priceId: product.defaultPriceId
-      })
-
-      const { checkoutUrl } = response.data
-
-      window.location.href = checkoutUrl
-    } catch (err) {
-      alert('Falha ao redirecionar ao checkout!')
-      setIsCheckoutSessionLoading(false)
-    }
-  }
 
   function handleAddCartItem(id: string) {
     const foundProduct = product
@@ -62,9 +37,6 @@ export default function Product({ product }: productProps) {
       return alert('Item já adicionado a sacola')
     }
     setShoppingCart((oldState) => [...oldState, foundProduct])
-    // console.log(shoppingCart)
-    // console.log(cartProduct, foundProduct)
-    // setOpenSideBar(true)
   }
 
   return (
@@ -79,10 +51,7 @@ export default function Product({ product }: productProps) {
         </div>
 
         <p>{product.description}</p>
-        <button
-          disabled={isCheckoutSessionLoading}
-          onClick={() => handleAddCartItem(product.id)}
-        >
+        <button onClick={() => handleAddCartItem(product.id)}>
           Colocar na sacola
         </button>
       </ProductDeatils>
